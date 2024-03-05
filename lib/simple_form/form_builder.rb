@@ -547,7 +547,7 @@ module SimpleForm
       custom_type = find_custom_type(attribute_name.to_s) and return custom_type
       return :select             if options[:collection]
 
-      input_type = column.try(:type)
+      input_type = column.is_a?(ActiveRecord::Encryption::EncryptedAttributeType) ? :string : column.try(:type)
       case input_type
       when :timestamp
         :datetime
